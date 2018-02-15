@@ -3,6 +3,6 @@
 ////////                          /////////////
 ///////////////////////////////////////////////
 
-output "mysql_dns" {
-  value = "mysql.${azurerm_dns_a_record.mysql.zone_name}"
-}
+# output "mysql_dns" {
+#   value = "mysql.${azurerm_dns_a_record.mysql.zone_name}"
+# }
