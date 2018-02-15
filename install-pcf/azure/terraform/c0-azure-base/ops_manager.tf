@@ -14,7 +14,7 @@ resource "azurerm_network_interface" "ops_manager_nic" {
     subnet_id                     = "${azurerm_subnet.opsman_and_director_subnet.id}"
     private_ip_address_allocation = "static"
     private_ip_address            = "${var.azure_opsman_priv_ip}"
-    public_ip_address_id          = "${azurerm_public_ip.opsman-public-ip.id}"
+#    public_ip_address_id          = "${azurerm_public_ip.opsman-public-ip.id}"
   }
 }
 
