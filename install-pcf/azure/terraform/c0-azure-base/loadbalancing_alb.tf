@@ -14,8 +14,8 @@ resource "azurerm_lb" "web" {
   resource_group_name = "${azurerm_resource_group.pcf_resource_group.name}"
 
   frontend_ip_configuration = {
-    name                 = "frontendip"
-    public_ip_address_id = "${azurerm_public_ip.web-lb-public-ip.id}"
+    name      = "frontendip"
+    subnet_id = "${azurerm_subnet.ert_subnet.id}"
   }
 }
 
@@ -26,8 +26,8 @@ resource "azurerm_lb" "tcp" {
   resource_group_name = "${azurerm_resource_group.pcf_resource_group.name}"
 
   frontend_ip_configuration = {
-    name                 = "frontendip"
-    public_ip_address_id = "${azurerm_public_ip.tcp-lb-public-ip.id}"
+    name      = "frontendip"
+    subnet_id = "${azurerm_subnet.ert_subnet.id}"
   }
 }
 
@@ -39,8 +39,8 @@ resource "azurerm_lb" "ssh-proxy" {
   resource_group_name = "${azurerm_resource_group.pcf_resource_group.name}"
 
   frontend_ip_configuration = {
-    name                 = "frontendip"
-    public_ip_address_id = "${azurerm_public_ip.ssh-proxy-lb-public-ip.id}"
+    name      = "frontendip"
+    subnet_id = "${azurerm_subnet.ert_subnet.id}"
   }
 }
 
