@@ -116,8 +116,6 @@
               diagnostic_report=$(
                 om-linux \
                   --target https://$OPS_MGR_DOMAIN \
-                  --client-id "${OPSMAN_CLIENT_ID}" \
-                  --client-secret "${OPSMAN_CLIENT_SECRET}" \
                   --username "$OPS_MGR_USERNAME" \
                   --password "$OPS_MGR_PASSWORD" \
                   --skip-ssl-validation \
@@ -166,8 +164,6 @@
 
                 om-linux \
                   --target https://$OPS_MGR_DOMAIN \
-                  --client-id "${OPSMAN_CLIENT_ID}" \
-                  --client-secret "${OPSMAN_CLIENT_SECRET}" \
                   --username "$OPS_MGR_USERNAME" \
                   --password "$OPS_MGR_PASSWORD" \
                   --skip-ssl-validation \
@@ -208,8 +204,6 @@
 
             om-linux \
             --target https://$OPS_MGR_DOMAIN \
-            --client-id "${OPSMAN_CLIENT_ID}" \
-            --client-secret "${OPSMAN_CLIENT_SECRET}" \
             --username "$OPS_MGR_USERNAME" \
             --password "$OPS_MGR_PASSWORD" \
             --request-timeout 3600 \
