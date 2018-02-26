@@ -44,6 +44,7 @@ function delete-infrastructure() {
     -var "priv_ip_mysql_lb=dontcare" \
     -var "pub_ip_ssh_proxy_lb=dontcare" \
     -var "pub_ip_id_ssh_proxy_lb=dontcare" \
+    -var "azure_terraform_vnet_dns_servers=dontcare" \
     -var "pub_ip_opsman_vm=dontcare" \
     -var "pub_ip_id_opsman_vm=dontcare" \
     -var "pub_ip_jumpbox_vm=dontcare" \
