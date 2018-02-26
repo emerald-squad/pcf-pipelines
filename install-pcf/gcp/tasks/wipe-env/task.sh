@@ -34,6 +34,7 @@ terraform destroy -force \
   -var "pcf_ert_ssl_cert=dontcare" \
   -var "pcf_ert_ssl_key=dontcare" \
   -var "opsman_allow_cidr=dontcare" \
+  -var "azure_terraform_vnet_dns_servers=dontcare" \
   -var "db_app_usage_service_username=dontcare" \
   -var "db_app_usage_service_password=dontcare" \
   -var "db_autoscale_username=dontcare" \
