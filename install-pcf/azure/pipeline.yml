@@ -491,6 +491,7 @@ jobs:
       MYSQL_NSX_LB_SECURITY_GROUP: ""
       MYSQL_NSX_LB_PORT: ""
       HAPROXY_FLOATING_IPS: ""
+      PCF_ERT_DOMAIN: {{pcf_ert_domain}}
 ###########################
 ## Job - Deploy    ERT   ##
 ###########################
