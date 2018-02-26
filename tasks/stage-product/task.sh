@@ -20,16 +20,12 @@ desired_version=$(jq --raw-output '.Release.Version' < ./pivnet-product/metadata
 
 AVAILABLE=$(om-linux \
   --skip-ssl-validation \
-  --client-id "${OPSMAN_CLIENT_ID}" \
-  --client-secret "${OPSMAN_CLIENT_SECRET}" \
   --username "${OPSMAN_USERNAME}" \
   --password "${OPSMAN_PASSWORD}" \
   --target "https://${OPSMAN_DOMAIN_OR_IP_ADDRESS}" \
   curl -path /api/v0/available_products)
 STAGED=$(om-linux \
   --skip-ssl-validation \
-  --client-id "${OPSMAN_CLIENT_ID}" \
-  --client-secret "${OPSMAN_CLIENT_SECRET}" \
   --username "${OPSMAN_USERNAME}" \
   --password "${OPSMAN_PASSWORD}" \
   --target "https://${OPSMAN_DOMAIN_OR_IP_ADDRESS}" \
@@ -62,8 +58,6 @@ full_version=$(echo "$UNSTAGED_PRODUCT" | jq -r '.[].product_version')
 
 om-linux --target "https://${OPSMAN_DOMAIN_OR_IP_ADDRESS}" \
   --skip-ssl-validation \
-  --client-id "${OPSMAN_CLIENT_ID}" \
-  --client-secret "${OPSMAN_CLIENT_SECRET}" \
   --username "${OPSMAN_USERNAME}" \
   --password "${OPSMAN_PASSWORD}" \
   stage-product \
