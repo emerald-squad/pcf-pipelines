@@ -68,6 +68,7 @@ azure_terraform_subnet_services1_dns: "168.63.129.16,8.8.8.8"
 azure_terraform_subnet_services1_gateway: "192.168.8.1"
 azure_terraform_subnet_services1_reserved: "192.168.8.1-192.168.8.9"
 azure_terraform_vnet_cidr: "192.168.0.0/20"
+azure_terraform_vnet_dns_servers: "168.63.129.16,8.8.8.8"
 
 # azure_vm_admin value should match with user ID used to create the certs pcf_ssh_key_pub.
 # The user ID will appear towards the end of the public key.

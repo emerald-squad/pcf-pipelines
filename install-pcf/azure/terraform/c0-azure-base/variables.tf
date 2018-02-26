@@ -16,6 +16,7 @@ variable "tenant_id" {}
 variable "location" {}
 
 variable "azure_terraform_vnet_cidr" {}
+variable "azure_terraform_vnet_dns_servers" {}
 variable "azure_terraform_subnet_infra_cidr" {}
 variable "azure_terraform_subnet_ert_cidr" {}
 variable "azure_terraform_subnet_services1_cidr" {}
