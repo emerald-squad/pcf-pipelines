@@ -183,6 +183,7 @@ jobs:
       AZURE_PACKAGES_CONTAINER: {{azure_packages_container}}
       AZURE_RESOURCES_CONTAINER: {{azure_resources_container}}
       AZURE_TERRAFORM_VNET_CIDR: {{azure_terraform_vnet_cidr}}
+      AZURE_TERRAFORM_VNET_DNS_SERVERS: ((azure_terraform_vnet_dns_servers))
       AZURE_TERRAFORM_SUBNET_INFRA_CIDR: {{azure_terraform_subnet_infra_cidr}}
       AZURE_TERRAFORM_SUBNET_ERT_CIDR: {{azure_terraform_subnet_ert_cidr}}
       AZURE_TERRAFORM_SUBNET_SERVICES1_CIDR: {{azure_terraform_subnet_services1_cidr}}

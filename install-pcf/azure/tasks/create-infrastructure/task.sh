@@ -57,6 +57,7 @@ terraform plan \
   -var "env_name=${AZURE_TERRAFORM_PREFIX}" \
   -var "env_short_name=${ENV_SHORT_NAME}" \
   -var "azure_terraform_vnet_cidr=${AZURE_TERRAFORM_VNET_CIDR}" \
+  -var "azure_terraform_vnet_dns_servers=${AZURE_TERRAFORM_VNET_DNS_SERVERS}" \
   -var "azure_terraform_subnet_infra_cidr=${AZURE_TERRAFORM_SUBNET_INFRA_CIDR}" \
   -var "azure_terraform_subnet_ert_cidr=${AZURE_TERRAFORM_SUBNET_ERT_CIDR}" \
   -var "azure_terraform_subnet_services1_cidr=${AZURE_TERRAFORM_SUBNET_SERVICES1_CIDR}" \
