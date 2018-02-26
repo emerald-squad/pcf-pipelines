@@ -9,7 +9,7 @@ resource "azurerm_virtual_network" "pcf_virtual_network" {
   resource_group_name = "${azurerm_resource_group.pcf_resource_group.name}"
   address_space       = ["${var.azure_terraform_vnet_cidr}"]
   location            = "${var.location}"
-  dns_servers         = ["${var.azure_terraform_vnet_dns_servers}"]
+  dns_servers         = ["${split(",", var.azure_terraform_vnet_dns_servers)}"]
 }
 
 resource "azurerm_subnet" "opsman_and_director_subnet" {
