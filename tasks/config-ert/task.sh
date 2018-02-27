@@ -232,14 +232,6 @@ cf_properties=$(
 
     +
 
-    {
-      ".properties.networking_point_of_entry.haproxy.disable_http": {
-        "value": $disable_http_proxy
-      }
-    }
-
-    +
-
 
     {
       ".properties.networking_point_of_entry": {
@@ -258,18 +250,6 @@ cf_properties=$(
         }
       }
     end
-
-    +
-
-    # TLS Cipher Suites
-    {
-      ".properties.networking_point_of_entry.external_ssl.ssl_ciphers": {
-        "value": $router_tls_ciphers
-      },
-      ".properties.networking_point_of_entry.haproxy.ssl_ciphers": {
-        "value": $haproxy_tls_ciphers
-      }
-    }
 
     +
 
