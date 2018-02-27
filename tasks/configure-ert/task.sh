@@ -1,5 +1,5 @@
 #!/bin/bash
-set -eu
+set -exu
 
 export OPSMAN_DOMAIN_OR_IP_ADDRESS="opsman.$PCF_ERT_DOMAIN"
 

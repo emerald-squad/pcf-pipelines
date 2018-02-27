@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -eu
+set -exu
 
 source pcf-pipelines/functions/generate_cert.sh
 
