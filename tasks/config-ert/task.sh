@@ -112,7 +112,6 @@ cf_properties=$(
     --arg mysql_backups_scp_destination "$MYSQL_BACKUPS_SCP_DESTINATION" \
     --arg mysql_backups_scp_cron_schedule "$MYSQL_BACKUPS_SCP_CRON_SCHEDULE" \
     --argjson credhub_encryption_keys "$CREDHUB_ENCRYPTION_KEYS_JSON" \
-    --argjson networking_poe_ssl_certs "$NETWORKING_POE_SSL_CERTS_JSON" \
     --arg container_networking_nw_cidr "$CONTAINER_NETWORKING_NW_CIDR" \
     '
     {
@@ -122,13 +121,13 @@ cf_properties=$(
       ".properties.logger_endpoint_port": {
         "value": $loggregator_endpoint_port
       },
-      ".properties.container_networking_interface_plugin.silk.network_cidr": {
+      ".properties.container_networking.enable.network_cidr": {
         "value": $container_networking_nw_cidr
       },
       ".properties.security_acknowledgement": {
         "value": $security_acknowledgement
       },
-      ".properties.push_apps_manager_company_name": {
+      ".push-apps-manager.company_name": {
         "value": $company_name
       },
       ".cloud_controller.system_domain": {
@@ -226,15 +225,6 @@ cf_properties=$(
 
     +
 
-    # SSL Termination
-    {
-      ".properties.networking_poe_ssl_certs": {
-        "value": $networking_poe_ssl_certs
-      }
-    }
-
-    +
-
     # HAProxy Forward TLS
     if $haproxy_forward_tls == "enable" then
       {
@@ -245,18 +235,12 @@ cf_properties=$(
           "value": $haproxy_backend_ca
         }
       }
-    else
-      {
-        ".properties.haproxy_forward_tls": {
-          "value": "disable"
-        }
-      }
     end
 
     +
 
     {
-      ".properties.routing_disable_http": {
+      ".properties.networking_point_of_entry.haproxy.disable_http": {
         "value": $disable_http_proxy
       }
     }
@@ -266,6 +250,14 @@ cf_properties=$(
     {
       ".properties.routing_tls_termination": {
         "value": $routing_tls_termination
+      }
+    }
+
+    +
+
+    {
+      ".properties.networking_point_of_entry": {
+        "value": "external_non_ssl"
       }
     }
 
@@ -285,10 +277,10 @@ cf_properties=$(
 
     # TLS Cipher Suites
     {
-      ".properties.gorouter_ssl_ciphers": {
+      ".properties.networking_point_of_entry.external_ssl.ssl_ciphers": {
         "value": $router_tls_ciphers
       },
-      ".properties.haproxy_ssl_ciphers": {
+      ".properties.networking_point_of_entry.haproxy.ssl_ciphers": {
         "value": $haproxy_tls_ciphers
       }
     }
