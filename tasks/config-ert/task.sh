@@ -176,15 +176,6 @@ cf_properties=$(
 
     +
 
-    # Credhub encryption keys
-    {
-      ".properties.credhub_key_encryption_passwords": {
-        "value": $credhub_encryption_keys
-      }
-    }
-
-    +
-
     # Route Services
     if $route_services == "enable" then
      {
@@ -235,6 +226,8 @@ cf_properties=$(
           "value": $haproxy_backend_ca
         }
       }
+    else
+      .
     end
 
     +
@@ -247,13 +240,6 @@ cf_properties=$(
 
     +
 
-    {
-      ".properties.routing_tls_termination": {
-        "value": $routing_tls_termination
-      }
-    }
-
-    +
 
     {
       ".properties.networking_point_of_entry": {
@@ -483,7 +469,6 @@ JOB_RESOURCE_CONFIG="{
   \"cloud_controller\": { \"instances\": $CLOUD_CONTROLLER_INSTANCES },
   \"cloud_controller_worker\": { \"instances\": $CLOUD_CONTROLLER_WORKER_INSTANCES },
   \"consul_server\": { \"instances\": $CONSUL_SERVER_INSTANCES },
-  \"credhub\": { \"instances\": $CREDHUB_INSTANCES },
   \"diego_brain\": { \"instances\": $DIEGO_BRAIN_INSTANCES },
   \"diego_cell\": { \"instances\": $DIEGO_CELL_INSTANCES },
   \"diego_database\": { \"instances\": $DIEGO_DATABASE_INSTANCES },
@@ -497,7 +482,6 @@ JOB_RESOURCE_CONFIG="{
   \"nfs_server\": { \"instances\": $NFS_SERVER_INSTANCES },
   \"router\": { \"instances\": $ROUTER_INSTANCES },
   \"syslog_adapter\": { \"instances\": $SYSLOG_ADAPTER_INSTANCES },
-  \"syslog_scheduler\": { \"instances\": $SYSLOG_SCHEDULER_INSTANCES },
   \"tcp_router\": { \"instances\": $TCP_ROUTER_INSTANCES },
   \"uaa\": { \"instances\": $UAA_INSTANCES }
 }"
