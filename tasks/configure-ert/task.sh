@@ -200,7 +200,6 @@ cf_properties=$(
     --arg mysql_backups_s3_secret_access_key "$MYSQL_BACKUPS_S3_SECRET_ACCESS_KEY" \
     --arg mysql_backups_s3_cron_schedule "$MYSQL_BACKUPS_S3_CRON_SCHEDULE" \
     --argjson credhub_encryption_keys "$CREDHUB_ENCRYPTION_KEYS_JSON" \
-    --argjson networking_poe_ssl_certs "$NETWORKING_POE_SSL_CERTS_JSON" \
     --arg container_networking_nw_cidr "$CONTAINER_NETWORKING_NW_CIDR" \
     '
     {
@@ -213,7 +212,7 @@ cf_properties=$(
       ".properties.tcp_routing": { "value": "disable" },
       ".properties.route_services": { "value": "enable" },
       ".ha_proxy.skip_cert_verify": { "value": true },
-      ".properties.container_networking_interface_plugin.silk.network_cidr": { "value": $container_networking_nw_cidr },
+      ".properties.container_networking.enable.network_cidr": { "value": $container_networking_nw_cidr },
       ".properties.route_services.enable.ignore_ssl_cert_verification": { "value": true },
       ".properties.security_acknowledgement": { "value": $security_acknowledgement },
       ".properties.system_database": { "value": "external" },
@@ -246,7 +245,7 @@ cf_properties=$(
       ".properties.uaa_database.external.port": { "value": "3306" },
       ".properties.uaa_database.external.uaa_username": { "value": $db_uaa_username },
       ".properties.uaa_database.external.uaa_password": { "value": { "secret": $db_uaa_password } },
-      ".properties.push_apps_manager_company_name": { "value": "pcf-\($iaas)" },
+      ".push-apps-manager.company_name": { "value": "pcf-\($iaas)" },
       ".cloud_controller.system_domain": { "value": $system_domain },
       ".cloud_controller.apps_domain": { "value": $apps_domain },
       ".cloud_controller.allow_app_ssh_access": { "value": true },
@@ -338,15 +337,6 @@ cf_properties=$(
 
     +
 
-    # SSL Termination
-    {
-      ".properties.networking_poe_ssl_certs": {
-        "value": $networking_poe_ssl_certs
-      }
-    }
-
-    +
-
     # HAProxy Forward TLS
     if $haproxy_forward_tls == "enable" then
       {
@@ -357,21 +347,26 @@ cf_properties=$(
           "value": $haproxy_backend_ca
         }
       }
-    else
-      {
-        ".properties.haproxy_forward_tls": {
-          "value": "disable"
-        }
-      }
     end
 
     +
 
     {
-      ".properties.routing_disable_http": {
+      ".properties.networking_point_of_entry.haproxy.disable_http": {
         "value": $routing_disable_http
       }
     }
+
+    +
+
+    {
+      ".properties.networking_point_of_entry": {
+        "value": "external_non_ssl"
+      }
+    }
+
+    +
+
 
     +
 
@@ -388,7 +383,7 @@ cf_properties=$(
     +
 
     {
-      ".properties.routing_tls_termination": {
+      "properties.routing_tls_termination": {
         "value": $routing_tls_termination
       }
     }
@@ -397,10 +392,10 @@ cf_properties=$(
 
     # TLS Cipher Suites
     {
-      ".properties.gorouter_ssl_ciphers": {
+      ".properties.networking_point_of_entry.external_ssl.ssl_ciphers": {
         "value": $router_tls_ciphers
       },
-      ".properties.haproxy_ssl_ciphers": {
+      ".properties.networking_point_of_entry.haproxy.ssl_ciphers": {
         "value": $haproxy_tls_ciphers
       }
     }
