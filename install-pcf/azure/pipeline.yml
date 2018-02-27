@@ -452,6 +452,7 @@ jobs:
       CREDHUB_INSTANCES: {{credhub_instances}}
       HA_PROXY_INSTANCES: {{ha_proxy_instances}}
       HA_PROXY_LB_NAME: {{ha_proxy_lb_name}}
+      GOROUTER_LB_NAME: {{gorouter_lb_name}}
       ROUTER_INSTANCES: {{router_instances}}
       MYSQL_MONITOR_INSTANCES: {{mysql_monitor_instances}}
       CLOCK_GLOBAL_INSTANCES: {{clock_global_instances}}

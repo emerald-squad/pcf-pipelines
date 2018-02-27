@@ -478,6 +478,7 @@ cf_resources=$(
   jq -n \
     --arg iaas "$IAAS" \
     --arg ha_proxy_elb_name "$HA_PROXY_LB_NAME" \
+    --arg gorouter_elb_name "$GOROUTER_LB_NAME" \
     --arg ha_proxy_floating_ips "$HAPROXY_FLOATING_IPS" \
     --arg tcp_router_nsx_security_group "${TCP_ROUTER_NSX_SECURITY_GROUP}" \
     --arg tcp_router_nsx_lb_edge_name "${TCP_ROUTER_NSX_LB_EDGE_NAME}" \
@@ -510,6 +511,15 @@ cf_resources=$(
     else
       .
     end
+
+    |
+
+    if $gorouter_elb_name != "" then
+      .router |= . + { "elb_names": [ $gorouter_elb_name ] }
+    else
+      .
+    end
+
 
     |
 
