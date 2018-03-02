@@ -43,6 +43,7 @@ function delete-infrastructure() {
     -var "env_name=dontcare" \
     -var "env_short_name=dontcare" \
     -var "azure_terraform_vnet_cidr=dontcare" \
+    -var "azure_terraform_vnet_dns_servers=dontcare" \
     -var "azure_terraform_subnet_infra_cidr=dontcare" \
     -var "azure_terraform_subnet_ert_cidr=dontcare" \
     -var "azure_terraform_subnet_services1_cidr=dontcare" \
