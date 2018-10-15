@@ -1,0 +1,74 @@
+###############################
+### PCF Object Params
+###############################
+# Set to true to enable all errands, false to disable all or leave blank to keep states the same.
+enable_errands:
+
+# The IaaS name for which stemcell to download. This must match the IaaS name
+# within the stemcell to download, e.g. "vsphere", "aws", "azure", "google" must be lowercase.
+iaas_type: azure
+
+# Operations Manager
+# ------------------------------
+# Credentials for Operations Manager. These are used for uploading, staging,
+# and deploying the product file on Operations Manager.
+# Either opsman_client_id/opsman_client_secret or opsman_admin_username/opsman_admin_password needs to be specified.
+# If you are using opsman_admin_username/opsman_admin_password, edit opsman_client_id/opsman_client_secret to be an empty value.
+# If you are using opsman_client_id/opsman_client_secret, edit opsman_admin_username/opsman_admin_password to be an empty value.
+#opsman_admin_username:
+#opsman_admin_password:
+opsman_client_id:
+opsman_client_secret:
+opsman_domain_or_ip_address: opsman.***REMOVED***.dev.***REMOVED***
+opsman_admin_username: admin
+***REMOVED***
+***REMOVED***
+***REMOVED***
+# Resource
+# ------------------------------
+# The token used to download the product file from Pivotal Network. Find this
+# on your Pivotal Network profile page:
+# https://network.pivotal.io/users/dashboard/edit-profile
+#pivnet_token:
+
+# The globs regular expression for the PivNet resource to download the product
+# release files. "*pivotal" is the default.
+# For products such as ERT, it is recommended to use "cf*pivotal" to avoid the
+# extra download of the SRT file in PCF 1.12.*
+product_globs: "cf*pivotal"
+
+# Pivotal ERT
+ert_slug: 'cf'
+ert_version_regex: '^2\.0\.21$'
+
+# Pivotal MySQL
+mysql_slug: 'p-mysql'
+mysql_version_regex: '^1\.10\..*$'
+
+# Pivotal RabbitMQ
+rabbitmq_slug: 'p-rabbitmq'
+rabbitmq_version_regex: '^1\.11\..*$'
+
+# Pivotal Spring Cloud Services
+scs_slug: 'p-spring-cloud-services'
+scs_version_regex: '^1\.5\..*$'
+
+# Pivotal Redis
+redis_slug: 'p-redis'
+redis_version_regex: '^1\.11\..*$'
+
+# Pivotal Metrics Forwarder
+metrics_forwarder_slug: 'p-metrics-forwarder'
+metrics_forwarder_version_regex: '^1\.11\.2$'
+
+# Pivotal Scheduler
+scheduler_slug: 'p-scheduler'
+scheduler_version_regex: '^1\.1\..*$'
+
+# Pivotal Single Sign-On
+sso_slug: 'Pivotal_Single_Sign-On_Service'
+sso_version_regex: '^1\.6\..*$'
+
+# PCF Metrics
+apm_slug: 'apm'
+apm_version_regex: '^1\.4\..*$'

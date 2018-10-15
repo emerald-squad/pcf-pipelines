@@ -1,0 +1,445 @@
+# Copyright 2017-Present Pivotal Software, Inc. All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#  http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+groups: []
+
+resource_types:
+- name: pivnet
+  type: docker-image
+  source:
+    repository: pivotalcf/pivnet-resource
+    tag: latest-final
+
+resources:
+- name: pcf-pipelines
+  type: git
+  source:
+    uri: https://github.com/emerald-squad/pcf-pipelines.git
+    branch: master
+
+- name: ert
+  type: pivnet
+  source:
+    api_token: ((pivnet_token))
+    product_slug: {{ert_slug}}
+    product_version: {{ert_version_regex}}
+    sort_by: semver
+    
+- name: mysql
+  type: pivnet
+  source:
+    api_token: ((pivnet_token))
+    product_slug: {{mysql_slug}}
+    product_version: {{mysql_version_regex}}
+    sort_by: semver
+
+- name: rabbitmq
+  type: pivnet
+  source:
+    api_token: ((pivnet_token))
+    product_slug: {{rabbitmq_slug}}
+    product_version: {{rabbitmq_version_regex}}
+    sort_by: semver
+
+- name: scs
+  type: pivnet
+  source:
+    api_token: ((pivnet_token))
+    product_slug: {{scs_slug}}
+    product_version: {{scs_version_regex}}
+    sort_by: semver
+
+- name: redis
+  type: pivnet
+  source:
+    api_token: ((pivnet_token))
+    product_slug: {{redis_slug}}
+    product_version: {{redis_version_regex}}
+    sort_by: semver
+
+- name: scheduler
+  type: pivnet
+  source:
+    api_token: ((pivnet_token))
+    product_slug: {{scheduler_slug}}
+    product_version: {{scheduler_version_regex}}
+    sort_by: semver
+
+- name: sso
+  type: pivnet
+  source:
+    api_token: ((pivnet_token))
+    product_slug: {{sso_slug}}
+    product_version: {{sso_version_regex}}
+    sort_by: semver
+
+- name: metrics-forwarder
+  type: pivnet
+  source:
+    api_token: ((pivnet_token))
+    product_slug: {{metrics_forwarder_slug}}
+    product_version: {{metrics_forwarder_version_regex}}
+    sort_by: semver
+
+- name: apm
+  type: pivnet
+  source:
+    api_token: ((pivnet_token))
+    product_slug: {{apm_slug}}
+    product_version: {{apm_version_regex}}
+    sort_by: semver
+
+jobs:
+#############################
+## MySQL
+#############################
+- name: upload-and-stage-mysql
+  plan:
+  - aggregate:
+    - get: pcf-pipelines
+    - get: pivnet-product
+      resource: mysql
+      params:
+        globs:
+        - {{product_globs}}
+
+  - task: wait-opsman-clear
+    file: pcf-pipelines/tasks/wait-opsman-clear/task.yml
+    params: &wait-params
+      OPSMAN_CLIENT_ID: {{opsman_client_id}}
+      OPSMAN_CLIENT_SECRET: {{opsman_client_secret}}
+      OPSMAN_USERNAME: {{opsman_admin_username}}
+      OPSMAN_PASSWORD: ((opsman_admin_password))
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: {{opsman_domain_or_ip_address}}
+
+  - task: upload-tile-and-stemcell
+    file: pcf-pipelines/tasks/upload-product-and-stemcell/task.yml
+    params: &upload-params
+      IAAS: {{iaas_type}}
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: {{opsman_domain_or_ip_address}}
+      OPSMAN_CLIENT_ID: {{opsman_client_id}}
+      OPSMAN_CLIENT_SECRET: {{opsman_client_secret}}
+      OPS_MGR_USR: {{opsman_admin_username}}
+      OPS_MGR_PWD: ((opsman_admin_password))
+      PIVNET_API_TOKEN: ((pivnet_token))
+      NO_PROXY: ""
+      OM_IP: ""
+
+  - task: stage-tile
+    file: pcf-pipelines/tasks/stage-product/task.yml
+    params: &stage-params
+      OPSMAN_CLIENT_ID: {{opsman_client_id}}
+      OPSMAN_CLIENT_SECRET: {{opsman_client_secret}}
+      OPSMAN_USERNAME: {{opsman_admin_username}}
+      OPSMAN_PASSWORD: ((opsman_admin_password))
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: {{opsman_domain_or_ip_address}}
+
+  - task: toggle-errands
+    file: pcf-pipelines/tasks/toggle-errands/task.yml
+    params: &toggle-params
+      ENABLE_ERRANDS: {{enable_errands}}
+      OPSMAN_CLIENT_ID: {{opsman_client_id}}
+      OPSMAN_CLIENT_SECRET: {{opsman_client_secret}}
+      OPSMAN_USERNAME: {{opsman_admin_username}}
+      OPSMAN_PASSWORD: ((opsman_admin_password))
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: {{opsman_domain_or_ip_address}}
+
+#############################
+## RabbitMQ
+#############################
+- name: upload-and-stage-rabbitmq
+  plan:
+  - aggregate:
+    - get: pcf-pipelines
+    - get: pivnet-product
+      resource: rabbitmq
+      params:
+        globs:
+        - {{product_globs}}
+
+  - task: wait-opsman-clear
+    file: pcf-pipelines/tasks/wait-opsman-clear/task.yml
+    params:
+      <<: *wait-params
+
+  - task: upload-tile-and-stemcell
+    file: pcf-pipelines/tasks/upload-product-and-stemcell/task.yml
+    params:
+      <<: *upload-params
+
+  - task: stage-tile
+    file: pcf-pipelines/tasks/stage-product/task.yml
+    params:
+      <<: *stage-params
+
+  - task: toggle-errands
+    file: pcf-pipelines/tasks/toggle-errands/task.yml
+    params:
+      <<: *toggle-params
+
+#############################
+## Spring Cloud Services
+#############################
+- name: upload-and-stage-spring-cloud-services
+  plan:
+  - aggregate:
+    - get: pcf-pipelines
+    - get: pivnet-product
+      resource: scs
+      params:
+        globs:
+        - {{product_globs}}
+
+  - task: wait-opsman-clear
+    file: pcf-pipelines/tasks/wait-opsman-clear/task.yml
+    params:
+      <<: *wait-params
+
+  - task: upload-tile-and-stemcell
+    file: pcf-pipelines/tasks/upload-product-and-stemcell/task.yml
+    params:
+      <<: *upload-params
+
+  - task: stage-tile
+    file: pcf-pipelines/tasks/stage-product/task.yml
+    params:
+      <<: *stage-params
+
+  - task: toggle-errands
+    file: pcf-pipelines/tasks/toggle-errands/task.yml
+    params:
+      <<: *toggle-params
+
+#############################
+## Pivotal Redis
+#############################
+- name: upload-and-stage-redis
+  plan:
+  - aggregate:
+    - get: pcf-pipelines
+    - get: pivnet-product
+      resource: redis
+      params:
+        globs:
+        - {{product_globs}}
+
+  - task: wait-opsman-clear
+    file: pcf-pipelines/tasks/wait-opsman-clear/task.yml
+    params:
+      <<: *wait-params
+
+  - task: upload-tile-and-stemcell
+    file: pcf-pipelines/tasks/upload-product-and-stemcell/task.yml
+    params:
+      <<: *upload-params
+
+  - task: stage-tile
+    file: pcf-pipelines/tasks/stage-product/task.yml
+    params:
+      <<: *stage-params
+
+  - task: toggle-errands
+    file: pcf-pipelines/tasks/toggle-errands/task.yml
+    params:
+      <<: *toggle-params
+
+#############################
+## Pivotal Scheduler
+#############################
+- name: upload-and-stage-scheduler
+  plan:
+  - aggregate:
+    - get: pcf-pipelines
+    - get: pivnet-product
+      resource: scheduler
+      params:
+        globs:
+        - {{product_globs}}
+
+  - task: wait-opsman-clear
+    file: pcf-pipelines/tasks/wait-opsman-clear/task.yml
+    params:
+      <<: *wait-params
+
+  - task: upload-tile-and-stemcell
+    file: pcf-pipelines/tasks/upload-product-and-stemcell/task.yml
+    params:
+      <<: *upload-params
+
+  - task: stage-tile
+    file: pcf-pipelines/tasks/stage-product/task.yml
+    params:
+      <<: *stage-params
+
+  - task: toggle-errands
+    file: pcf-pipelines/tasks/toggle-errands/task.yml
+    params:
+      <<: *toggle-params
+
+#############################
+## Pivotal Single Sign-On
+#############################
+- name: upload-and-stage-single-sign-on
+  plan:
+  - aggregate:
+    - get: pcf-pipelines
+    - get: pivnet-product
+      resource: sso
+      params:
+        globs:
+        - {{product_globs}}
+
+  - task: wait-opsman-clear
+    file: pcf-pipelines/tasks/wait-opsman-clear/task.yml
+    params:
+      <<: *wait-params
+
+  - task: upload-tile-and-stemcell
+    file: pcf-pipelines/tasks/upload-product-and-stemcell/task.yml
+    params:
+      <<: *upload-params
+
+  - task: stage-tile
+    file: pcf-pipelines/tasks/stage-product/task.yml
+    params:
+      <<: *stage-params
+
+  - task: toggle-errands
+    file: pcf-pipelines/tasks/toggle-errands/task.yml
+    params:
+      <<: *toggle-params
+
+#############################
+## Pivotal Metrics Forwarder
+#############################
+- name: upload-and-stage-metrics-forwarder
+  plan:
+  - aggregate:
+    - get: pcf-pipelines
+    - get: pivnet-product
+      resource: metrics-forwarder
+      params:
+        globs:
+        - {{product_globs}}
+
+  - task: wait-opsman-clear
+    file: pcf-pipelines/tasks/wait-opsman-clear/task.yml
+    params:
+      <<: *wait-params
+
+  - task: upload-tile-and-stemcell
+    file: pcf-pipelines/tasks/upload-product-and-stemcell/task.yml
+    params:
+      <<: *upload-params
+
+  - task: stage-tile
+    file: pcf-pipelines/tasks/stage-product/task.yml
+    params:
+      <<: *stage-params
+
+  - task: toggle-errands
+    file: pcf-pipelines/tasks/toggle-errands/task.yml
+    params:
+      <<: *toggle-params
+
+#############################
+## PCF Metrics (APM)
+#############################
+- name: upload-and-stage-PCF-Metrics
+  plan:
+  - aggregate:
+    - get: pcf-pipelines
+    - get: pivnet-product
+      resource: apm
+      params:
+        globs:
+        - {{product_globs}}
+
+  - task: wait-opsman-clear
+    file: pcf-pipelines/tasks/wait-opsman-clear/task.yml
+    params:
+      <<: *wait-params
+
+  - task: upload-tile-and-stemcell
+    file: pcf-pipelines/tasks/upload-product-and-stemcell/task.yml
+    params:
+      <<: *upload-params
+
+  - task: stage-tile
+    file: pcf-pipelines/tasks/stage-product/task.yml
+    params:
+      <<: *stage-params
+
+  - task: toggle-errands
+    file: pcf-pipelines/tasks/toggle-errands/task.yml
+    params:
+      <<: *toggle-params
+#############################
+## PCF ERT
+#############################
+- name: upload-and-stage-ERT
+  plan:
+  - aggregate:
+    - get: pcf-pipelines
+    - get: pivnet-product
+      resource: ert
+      params:
+        globs:
+        - {{product_globs}}
+
+  - task: wait-opsman-clear
+    file: pcf-pipelines/tasks/wait-opsman-clear/task.yml
+    params:
+      <<: *wait-params
+
+  - task: upload-tile-and-stemcell
+    file: pcf-pipelines/tasks/upload-product-and-stemcell/task.yml
+    params:
+      <<: *upload-params
+
+  - task: stage-tile
+    file: pcf-pipelines/tasks/stage-product/task.yml
+    params:
+      <<: *stage-params
+
+  - task: toggle-errands
+    file: pcf-pipelines/tasks/toggle-errands/task.yml
+    params:
+      <<: *toggle-params
+
+#############################
+- name: delete-unused
+  plan:
+  - aggregate:
+    - get: pcf-pipelines
+  - task: delete-unused-products
+    file: pcf-pipelines/tasks/delete-unused-products/task.yml
+    params:
+      OPSMAN_CLIENT_ID: {{opsman_client_id}}
+      OPSMAN_CLIENT_SECRET: {{opsman_client_secret}}
+      OPSMAN_USERNAME: {{opsman_admin_username}}
+      OPSMAN_PASSWORD: ((opsman_admin_password))
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: {{opsman_domain_or_ip_address}}
+#############################
+- name: Woot
+  plan:
+  - get: pcf-pipelines
+  - task: fail
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source: {repository: alpine}
+      run:
+        path: false
