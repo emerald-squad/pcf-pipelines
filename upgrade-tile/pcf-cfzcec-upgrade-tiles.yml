@@ -1,0 +1,490 @@
+groups: []
+resources:
+- name: ert
+  type: pivnet
+  source:
+    api_token: ((pivnet_token))
+    product_slug: cf
+    product_version: ^2\.0\.18$
+    sort_by: semver
+- name: rabbitmq
+  type: pivnet
+  source:
+    api_token: ((pivnet_token))
+    product_slug: p-rabbitmq
+    product_version: ^1\.10\..*$
+    sort_by: semver
+- name: scs
+  type: pivnet
+  source:
+    api_token: ((pivnet_token))
+    product_slug: p-spring-cloud-services
+    product_version: ^1\.4\..*$
+    sort_by: semver
+- name: metrics-forwarder
+  type: pivnet
+  source:
+    api_token: ((pivnet_token))
+    product_slug: p-metrics-forwarder
+    product_version: ^1\.11\..*$
+    sort_by: semver
+- name: apm
+  type: pivnet
+  source:
+    api_token: ((pivnet_token))
+    product_slug: apm
+    product_version: ^1\.4\..*$
+    sort_by: semver
+- name: redis
+  type: pivnet
+  source:
+    api_token: ((pivnet_token))
+    product_slug: p-redis
+    product_version: ^1\.11\.3*$
+    sort_by: semver
+- name: scheduler
+  type: pivnet
+  source:
+    api_token: ((pivnet_token))
+    product_slug: p-scheduler
+    product_version: ^1\.1\..*$
+    sort_by: semver
+- name: mysql
+  type: pivnet
+  source:
+    api_token: ((pivnet_token))
+    product_slug: p-mysql
+    product_version: ^1\.10\..*$
+    sort_by: semver
+- name: pcf-pipelines
+  type: git
+  source:
+    branch: master
+    uri: https://github.com/emerald-squad/pcf-pipelines.git
+- name: sso
+  type: pivnet
+  source:
+    api_token: ((pivnet_token))
+    product_slug: Pivotal_Single_Sign-On_Service
+    product_version: ^1\.4\..*$
+    sort_by: semver
+- name: splunk-nozzle
+  type: pivnet
+  source:
+    api_token: ((pivnet_token))
+    product_slug: Splunk-nozzle
+    product_version: ^1\.0\..*$
+    sort_by: semver
+#### Resource types #####
+resource_types:
+- name: pivnet
+  type: docker-image
+  source:
+    repository: pivotalcf/pivnet-resource
+    tag: latest-final
+##### Jobs #####
+jobs:
+- name: upload-and-stage-mysql
+  plan:
+  - aggregate:
+    - get: pcf-pipelines
+    - get: pivnet-product
+      resource: mysql
+      params:
+        globs:
+        - '*pivotal'
+  - task: upload-tile-and-stemcell
+    file: pcf-pipelines/tasks/upload-product-and-stemcell/task.yml
+    params:
+      IAAS: azure
+      NO_PROXY: ""
+      OM_IP: ""
+      OPS_MGR_PWD: ((opsman_admin_password))
+      OPS_MGR_USR: ((opsman_admin_username))
+      OPSMAN_CLIENT_ID: ""
+      OPSMAN_CLIENT_SECRET: ""
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      PIVNET_API_TOKEN: ((pivnet_token))
+  - task: stage-tile
+    file: pcf-pipelines/tasks/stage-product/task.yml
+    params:
+      OPSMAN_CLIENT_ID: ""
+      OPSMAN_CLIENT_SECRET: ""
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      OPSMAN_PASSWORD: ((opsman_admin_password))
+      OPSMAN_USERNAME: ((opsman_admin_username))
+  - task: toggle-errands
+    file: pcf-pipelines/tasks/toggle-errands/task.yml
+    params:
+      ENABLE_ERRANDS: ""
+      OPSMAN_CLIENT_ID: ""
+      OPSMAN_CLIENT_SECRET: ""
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      OPSMAN_PASSWORD: ((opsman_admin_password))
+      OPSMAN_USERNAME: ((opsman_admin_username))
+- name: upload-and-stage-rabbitmq
+  plan:
+  - aggregate:
+    - get: pcf-pipelines
+    - get: pivnet-product
+      resource: rabbitmq
+      params:
+        globs:
+        - '*pivotal'
+  - task: upload-tile-and-stemcell
+    file: pcf-pipelines/tasks/upload-product-and-stemcell/task.yml
+    params:
+      IAAS: azure
+      NO_PROXY: ""
+      OM_IP: ""
+      OPS_MGR_PWD: ((opsman_admin_password))
+      OPS_MGR_USR: ((opsman_admin_username))
+      OPSMAN_CLIENT_ID: ""
+      OPSMAN_CLIENT_SECRET: ""
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      PIVNET_API_TOKEN: ((pivnet_token))
+  - task: stage-tile
+    file: pcf-pipelines/tasks/stage-product/task.yml
+    params:
+      OPSMAN_CLIENT_ID: ""
+      OPSMAN_CLIENT_SECRET: ""
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      OPSMAN_PASSWORD: ((opsman_admin_password))
+      OPSMAN_USERNAME: ((opsman_admin_username))
+  - task: toggle-errands
+    file: pcf-pipelines/tasks/toggle-errands/task.yml
+    params:
+      ENABLE_ERRANDS: ""
+      OPSMAN_CLIENT_ID: ""
+      OPSMAN_CLIENT_SECRET: ""
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      OPSMAN_PASSWORD: ((opsman_admin_password))
+      OPSMAN_USERNAME: ((opsman_admin_username))
+- name: upload-and-stage-spring-cloud-services
+  plan:
+  - aggregate:
+    - get: pcf-pipelines
+    - get: pivnet-product
+      resource: scs
+      params:
+        globs:
+        - '*pivotal'
+  - task: upload-tile-and-stemcell
+    file: pcf-pipelines/tasks/upload-product-and-stemcell/task.yml
+    params:
+      IAAS: azure
+      NO_PROXY: ""
+      OM_IP: ""
+      OPS_MGR_PWD: ((opsman_admin_password))
+      OPS_MGR_USR: ((opsman_admin_username))
+      OPSMAN_CLIENT_ID: ""
+      OPSMAN_CLIENT_SECRET: ""
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      PIVNET_API_TOKEN: ((pivnet_token))
+  - task: stage-tile
+    file: pcf-pipelines/tasks/stage-product/task.yml
+    params:
+      OPSMAN_CLIENT_ID: ""
+      OPSMAN_CLIENT_SECRET: ""
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      OPSMAN_PASSWORD: ((opsman_admin_password))
+      OPSMAN_USERNAME: ((opsman_admin_username))
+  - task: toggle-errands
+    file: pcf-pipelines/tasks/toggle-errands/task.yml
+    params:
+      ENABLE_ERRANDS: ""
+      OPSMAN_CLIENT_ID: ""
+      OPSMAN_CLIENT_SECRET: ""
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      OPSMAN_PASSWORD: ((opsman_admin_password))
+      OPSMAN_USERNAME: ((opsman_admin_username))
+- name: upload-and-stage-redis
+  plan:
+  - aggregate:
+    - get: pcf-pipelines
+    - get: pivnet-product
+      resource: redis
+      params:
+        globs:
+        - '*pivotal'
+  - task: upload-tile-and-stemcell
+    file: pcf-pipelines/tasks/upload-product-and-stemcell/task.yml
+    params:
+      IAAS: azure
+      NO_PROXY: ""
+      OM_IP: ""
+      OPS_MGR_PWD: ((opsman_admin_password))
+      OPS_MGR_USR: ((opsman_admin_username))
+      OPSMAN_CLIENT_ID: ""
+      OPSMAN_CLIENT_SECRET: ""
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      PIVNET_API_TOKEN: ((pivnet_token))
+  - task: stage-tile
+    file: pcf-pipelines/tasks/stage-product/task.yml
+    params:
+      OPSMAN_CLIENT_ID: ""
+      OPSMAN_CLIENT_SECRET: ""
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      OPSMAN_PASSWORD: ((opsman_admin_password))
+      OPSMAN_USERNAME: ((opsman_admin_username))
+  - task: toggle-errands
+    file: pcf-pipelines/tasks/toggle-errands/task.yml
+    params:
+      ENABLE_ERRANDS: ""
+      OPSMAN_CLIENT_ID: ""
+      OPSMAN_CLIENT_SECRET: ""
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      OPSMAN_PASSWORD: ((opsman_admin_password))
+      OPSMAN_USERNAME: ((opsman_admin_username))
+- name: upload-and-stage-scheduler
+  plan:
+  - aggregate:
+    - get: pcf-pipelines
+    - get: pivnet-product
+      resource: scheduler
+      params:
+        globs:
+        - '*pivotal'
+  - task: upload-tile-and-stemcell
+    file: pcf-pipelines/tasks/upload-product-and-stemcell/task.yml
+    params:
+      IAAS: azure
+      NO_PROXY: ""
+      OM_IP: ""
+      OPS_MGR_PWD: ((opsman_admin_password))
+      OPS_MGR_USR: ((opsman_admin_username))
+      OPSMAN_CLIENT_ID: ""
+      OPSMAN_CLIENT_SECRET: ""
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      PIVNET_API_TOKEN: ((pivnet_token))
+  - task: stage-tile
+    file: pcf-pipelines/tasks/stage-product/task.yml
+    params:
+      OPSMAN_CLIENT_ID: ""
+      OPSMAN_CLIENT_SECRET: ""
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      OPSMAN_PASSWORD: ((opsman_admin_password))
+      OPSMAN_USERNAME: ((opsman_admin_username))
+  - task: toggle-errands
+    file: pcf-pipelines/tasks/toggle-errands/task.yml
+    params:
+      ENABLE_ERRANDS: ""
+      OPSMAN_CLIENT_ID: ""
+      OPSMAN_CLIENT_SECRET: ""
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      OPSMAN_PASSWORD: ((opsman_admin_password))
+      OPSMAN_USERNAME: ((opsman_admin_username))
+- name: upload-and-stage-single-sign-on
+  plan:
+  - aggregate:
+    - get: pcf-pipelines
+    - get: pivnet-product
+      resource: sso
+      params:
+        globs:
+        - '*pivotal'
+  - task: upload-tile-and-stemcell
+    file: pcf-pipelines/tasks/upload-product-and-stemcell/task.yml
+    params:
+      IAAS: azure
+      NO_PROXY: ""
+      OM_IP: ""
+      OPS_MGR_PWD: ((opsman_admin_password))
+      OPS_MGR_USR: ((opsman_admin_username))
+      OPSMAN_CLIENT_ID: ""
+      OPSMAN_CLIENT_SECRET: ""
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      PIVNET_API_TOKEN: ((pivnet_token))
+  - task: stage-tile
+    file: pcf-pipelines/tasks/stage-product/task.yml
+    params:
+      OPSMAN_CLIENT_ID: ""
+      OPSMAN_CLIENT_SECRET: ""
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      OPSMAN_PASSWORD: ((opsman_admin_password))
+      OPSMAN_USERNAME: ((opsman_admin_username))
+  - task: toggle-errands
+    file: pcf-pipelines/tasks/toggle-errands/task.yml
+    params:
+      ENABLE_ERRANDS: ""
+      OPSMAN_CLIENT_ID: ""
+      OPSMAN_CLIENT_SECRET: ""
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      OPSMAN_PASSWORD: ((opsman_admin_password))
+      OPSMAN_USERNAME: ((opsman_admin_username))
+- name: upload-and-stage-metrics-forwarder
+  plan:
+  - aggregate:
+    - get: pcf-pipelines
+    - get: pivnet-product
+      resource: metrics-forwarder
+      params:
+        globs:
+        - '*pivotal'
+  - task: upload-tile-and-stemcell
+    file: pcf-pipelines/tasks/upload-product-and-stemcell/task.yml
+    params:
+      IAAS: azure
+      NO_PROXY: ""
+      OM_IP: ""
+      OPS_MGR_PWD: ((opsman_admin_password))
+      OPS_MGR_USR: ((opsman_admin_username))
+      OPSMAN_CLIENT_ID: ""
+      OPSMAN_CLIENT_SECRET: ""
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      PIVNET_API_TOKEN: ((pivnet_token))
+  - task: stage-tile
+    file: pcf-pipelines/tasks/stage-product/task.yml
+    params:
+      OPSMAN_CLIENT_ID: ""
+      OPSMAN_CLIENT_SECRET: ""
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      OPSMAN_PASSWORD: ((opsman_admin_password))
+      OPSMAN_USERNAME: ((opsman_admin_username))
+  - task: toggle-errands
+    file: pcf-pipelines/tasks/toggle-errands/task.yml
+    params:
+      ENABLE_ERRANDS: ""
+      OPSMAN_CLIENT_ID: ""
+      OPSMAN_CLIENT_SECRET: ""
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      OPSMAN_PASSWORD: ((opsman_admin_password))
+      OPSMAN_USERNAME: ((opsman_admin_username))
+- name: upload-and-stage-PCF-Metrics
+  plan:
+  - aggregate:
+    - get: pcf-pipelines
+    - get: pivnet-product
+      resource: apm
+      params:
+        globs:
+        - '*pivotal'
+  - task: upload-tile-and-stemcell
+    file: pcf-pipelines/tasks/upload-product-and-stemcell/task.yml
+    params:
+      IAAS: azure
+      NO_PROXY: ""
+      OM_IP: ""
+      OPS_MGR_PWD: ((opsman_admin_password))
+      OPS_MGR_USR: ((opsman_admin_username))
+      OPSMAN_CLIENT_ID: ""
+      OPSMAN_CLIENT_SECRET: ""
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      PIVNET_API_TOKEN: ((pivnet_token))
+  - task: stage-tile
+    file: pcf-pipelines/tasks/stage-product/task.yml
+    params:
+      OPSMAN_CLIENT_ID: ""
+      OPSMAN_CLIENT_SECRET: ""
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      OPSMAN_PASSWORD: ((opsman_admin_password))
+      OPSMAN_USERNAME: ((opsman_admin_username))
+  - task: toggle-errands
+    file: pcf-pipelines/tasks/toggle-errands/task.yml
+    params:
+      ENABLE_ERRANDS: ""
+      OPSMAN_CLIENT_ID: ""
+      OPSMAN_CLIENT_SECRET: ""
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      OPSMAN_PASSWORD: ((opsman_admin_password))
+      OPSMAN_USERNAME: ((opsman_admin_username))
+- name: upload-and-stage-ERT
+  plan:
+  - aggregate:
+    - get: pcf-pipelines
+    - get: pivnet-product
+      resource: ert
+      params:
+        globs:
+        - cf*pivotal
+  - task: upload-tile-and-stemcell
+    file: pcf-pipelines/tasks/upload-product-and-stemcell/task.yml
+    params:
+      IAAS: azure
+      NO_PROXY: ""
+      OM_IP: ""
+      OPS_MGR_PWD: ((opsman_admin_password))
+      OPS_MGR_USR: ((opsman_admin_username))
+      OPSMAN_CLIENT_ID: ""
+      OPSMAN_CLIENT_SECRET: ""
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      PIVNET_API_TOKEN: ((pivnet_token))
+  - task: stage-tile
+    file: pcf-pipelines/tasks/stage-product/task.yml
+    params:
+      OPSMAN_CLIENT_ID: ""
+      OPSMAN_CLIENT_SECRET: ""
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      OPSMAN_PASSWORD: ((opsman_admin_password))
+      OPSMAN_USERNAME: ((opsman_admin_username))
+  - task: toggle-errands
+    file: pcf-pipelines/tasks/toggle-errands/task.yml
+    params:
+      ENABLE_ERRANDS: ""
+      OPSMAN_CLIENT_ID: ""
+      OPSMAN_CLIENT_SECRET: ""
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      OPSMAN_PASSWORD: ((opsman_admin_password))
+      OPSMAN_USERNAME: ((opsman_admin_username))
+- name: upload-and-stage-splunk-nozzle
+  plan:
+  - aggregate:
+    - get: pcf-pipelines
+    - get: pivnet-product
+      resource: splunk-nozzle
+      params:
+        globs:
+        - '*pivotal'
+  - task: upload-tile-and-stemcell
+    file: pcf-pipelines/tasks/upload-product-and-stemcell/task.yml
+    params:
+      IAAS: azure
+      NO_PROXY: ""
+      OM_IP: ""
+      OPS_MGR_PWD: ((opsman_admin_password))
+      OPS_MGR_USR: ((opsman_admin_username))
+      OPSMAN_CLIENT_ID: ""
+      OPSMAN_CLIENT_SECRET: ""
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      PIVNET_API_TOKEN: ((pivnet_token))
+  - task: stage-tile
+    file: pcf-pipelines/tasks/stage-product/task.yml
+    params:
+      OPSMAN_CLIENT_ID: ""
+      OPSMAN_CLIENT_SECRET: ""
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      OPSMAN_PASSWORD: ((opsman_admin_password))
+      OPSMAN_USERNAME: ((opsman_admin_username))
+  - task: toggle-errands
+    file: pcf-pipelines/tasks/toggle-errands/task.yml
+    params:
+      ENABLE_ERRANDS: ""
+      OPSMAN_CLIENT_ID: ""
+      OPSMAN_CLIENT_SECRET: ""
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      OPSMAN_PASSWORD: ((opsman_admin_password))
+      OPSMAN_USERNAME: ((opsman_admin_username))
+- name: delete-unused-products
+  plan:
+  - aggregate:
+    - get: pcf-pipelines
+  - task: delete-unused-products
+    file: pcf-pipelines/tasks/delete-unused-products/task.yml
+    params:
+      OPSMAN_CLIENT_ID: ""
+      OPSMAN_CLIENT_SECRET: ""
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      OPSMAN_PASSWORD: ((opsman_admin_password))
+      OPSMAN_USERNAME: ((opsman_admin_username))
+- name: O
+  plan:
+  - get: pcf-pipelines
+  - task: fail
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source:
+          repository: alpine
+      run:
+        path: "false"
