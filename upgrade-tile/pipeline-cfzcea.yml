@@ -20,8 +20,23 @@ resource_types:
   source:
     repository: pivotalcf/pivnet-resource
     tag: latest-final
+- name: hpsm
+  type: docker-image
+  source:
+    repository: docker.***REMOVED***.dev.***REMOVED***/hpsm-resource
+    tag: latest
 
 resources:
+- name: hpsm
+  type: hpsm
+  source:
+    base_url: "https://oo.certif.***REMOVED***/oo"
+    oo_user: ServicePCF
+    oo_password: ((hpoo-password))
+    change_model: "1313"
+    owner: "DWJ1173"
+    skip_ssl_verification: false
+
 - name: pcf-pipelines
   type: git
   source:
@@ -35,7 +50,7 @@ resources:
     product_slug: {{ert_slug}}
     product_version: {{ert_version_regex}}
     sort_by: semver
-    
+
 - name: mysql
   type: pivnet
   source:
@@ -100,7 +115,36 @@ resources:
     product_version: {{apm_version_regex}}
     sort_by: semver
 
+- name: healthwatch
+  type: pivnet
+  source:
+    api_token: ((pivnet_token))
+    product_slug: {{healthwatch_slug}}
+    product_version: {{healthwatch_version_regex}}
+    sort_by: semver
+
 jobs:
+############################
+## HPSM
+############################
+- name: create-hpsm
+  plan:
+  - put: hpsm
+    params:
+      action: create
+      environment: ***REMOVED***
+  - task: hello
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source:
+          repository: alpine
+      run:
+        path: sh
+        args:
+        - -c
+        - 'echo "Creation de ticket HPSM"'
 #############################
 ## MySQL
 #############################
@@ -364,7 +408,7 @@ jobs:
       resource: apm
       params:
         globs:
-        - {{product_globs}}
+        - "apm*pivotal"
 
   - task: wait-opsman-clear
     file: pcf-pipelines/tasks/wait-opsman-clear/task.yml
@@ -385,6 +429,53 @@ jobs:
     file: pcf-pipelines/tasks/toggle-errands/task.yml
     params:
       <<: *toggle-params
+#############################
+## PCF Healthwatch
+#############################
+- name: upload-and-stage-PCF-Healthwatch
+  plan:
+  - aggregate:
+    - get: pcf-pipelines
+    - get: pivnet-product
+      resource: healthwatch
+      params:
+        globs:
+        - "p-healthwatch*pivotal"
+  - put: hpsm
+    params:
+      action: create
+      environment: ***REMOVED***
+  - task: wait-opsman-clear
+    file: pcf-pipelines/tasks/wait-opsman-clear/task.yml
+    params:
+      <<: *wait-params
+
+  - task: upload-tile-and-stemcell
+    file: pcf-pipelines/tasks/upload-product-and-stemcell/task.yml
+    params:
+      <<: *upload-params
+
+  - task: stage-tile
+    file: pcf-pipelines/tasks/stage-product/task.yml
+    params:
+      <<: *stage-params
+    on_success:
+      put: hpsm
+      params:
+        action: close
+        path: hpsm
+        result: success
+    on_failure:
+      put: hpsm
+      params:
+        action: close
+        path: hpsm
+        result: fail
+  - task: toggle-errands
+    file: pcf-pipelines/tasks/toggle-errands/task.yml
+    params:
+      <<: *toggle-params
+
 #############################
 ## PCF ERT
 #############################

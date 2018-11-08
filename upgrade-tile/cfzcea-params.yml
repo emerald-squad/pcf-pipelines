@@ -39,7 +39,7 @@ product_globs: "cf*pivotal"
 
 # Pivotal ERT
 ert_slug: 'cf'
-ert_version_regex: '^2\.0\.21$'
+ert_version_regex: '^2\.1\..*$'
 
 # Pivotal MySQL
 mysql_slug: 'p-mysql'
@@ -71,4 +71,8 @@ sso_version_regex: '^1\.6\..*$'
 
 # PCF Metrics
 apm_slug: 'apm'
-apm_version_regex: '^1\.4\..*$'
+apm_version_regex: '^1\.5\..*$'
+
+# PCF Healthwatch
+healthwatch_slug: 'p-healthwatch'
+healthwatch_version_regex: '^1\.1\..*$'
