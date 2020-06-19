@@ -23,14 +23,14 @@ resource_types:
 - name: hpsm
   type: docker-image
   source:
-    repository: docker.cfzcea.dev.desjardins.com/hpsm-resource
+    repository: achanger
     tag: latest
 
 resources:
 - name: hpsm
   type: hpsm
   source:
-    base_url: "https://oo.certif.desjardins.com/oo"
+    base_url: "achanger"
     oo_user: ServicePCF
     oo_password: ((hpoo-password))
     change_model: "1313"
