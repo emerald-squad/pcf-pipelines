@@ -19,11 +19,8 @@ iaas_type: azure
 #opsman_admin_password:
 opsman_client_id:
 opsman_client_secret:
-opsman_domain_or_ip_address: opsman.***REMOVED***.dev.***REMOVED***
-opsman_admin_username: admin
-***REMOVED***
-***REMOVED***
-***REMOVED***
+opsman_domain_or_ip_address: 
+opsman_admin_username: 
 # Resource
 # ------------------------------
 # The token used to download the product file from Pivotal Network. Find this

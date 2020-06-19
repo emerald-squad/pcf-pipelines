@@ -103,14 +103,14 @@ jobs:
       OPS_MGR_USR: ((opsman_admin_username))
       OPSMAN_CLIENT_ID: ""
       OPSMAN_CLIENT_SECRET: ""
-      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.desjardins.com
       PIVNET_API_TOKEN: ((pivnet_token))
   - task: stage-tile
     file: pcf-pipelines/tasks/stage-product/task.yml
     params:
       OPSMAN_CLIENT_ID: ""
       OPSMAN_CLIENT_SECRET: ""
-      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.desjardins.com
       OPSMAN_PASSWORD: ((opsman_admin_password))
       OPSMAN_USERNAME: ((opsman_admin_username))
   - task: toggle-errands
@@ -119,7 +119,7 @@ jobs:
       ENABLE_ERRANDS: ""
       OPSMAN_CLIENT_ID: ""
       OPSMAN_CLIENT_SECRET: ""
-      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.desjardins.com
       OPSMAN_PASSWORD: ((opsman_admin_password))
       OPSMAN_USERNAME: ((opsman_admin_username))
 - name: upload-and-stage-rabbitmq
@@ -141,14 +141,14 @@ jobs:
       OPS_MGR_USR: ((opsman_admin_username))
       OPSMAN_CLIENT_ID: ""
       OPSMAN_CLIENT_SECRET: ""
-      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.desjardins.com
       PIVNET_API_TOKEN: ((pivnet_token))
   - task: stage-tile
     file: pcf-pipelines/tasks/stage-product/task.yml
     params:
       OPSMAN_CLIENT_ID: ""
       OPSMAN_CLIENT_SECRET: ""
-      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.desjardins.com
       OPSMAN_PASSWORD: ((opsman_admin_password))
       OPSMAN_USERNAME: ((opsman_admin_username))
   - task: toggle-errands
@@ -157,7 +157,7 @@ jobs:
       ENABLE_ERRANDS: ""
       OPSMAN_CLIENT_ID: ""
       OPSMAN_CLIENT_SECRET: ""
-      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.desjardins.com
       OPSMAN_PASSWORD: ((opsman_admin_password))
       OPSMAN_USERNAME: ((opsman_admin_username))
 - name: upload-and-stage-spring-cloud-services
@@ -179,14 +179,14 @@ jobs:
       OPS_MGR_USR: ((opsman_admin_username))
       OPSMAN_CLIENT_ID: ""
       OPSMAN_CLIENT_SECRET: ""
-      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.desjardins.com
       PIVNET_API_TOKEN: ((pivnet_token))
   - task: stage-tile
     file: pcf-pipelines/tasks/stage-product/task.yml
     params:
       OPSMAN_CLIENT_ID: ""
       OPSMAN_CLIENT_SECRET: ""
-      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.desjardins.com
       OPSMAN_PASSWORD: ((opsman_admin_password))
       OPSMAN_USERNAME: ((opsman_admin_username))
   - task: toggle-errands
@@ -195,7 +195,7 @@ jobs:
       ENABLE_ERRANDS: ""
       OPSMAN_CLIENT_ID: ""
       OPSMAN_CLIENT_SECRET: ""
-      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.desjardins.com
       OPSMAN_PASSWORD: ((opsman_admin_password))
       OPSMAN_USERNAME: ((opsman_admin_username))
 - name: upload-and-stage-redis
@@ -217,14 +217,14 @@ jobs:
       OPS_MGR_USR: ((opsman_admin_username))
       OPSMAN_CLIENT_ID: ""
       OPSMAN_CLIENT_SECRET: ""
-      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.desjardins.com
       PIVNET_API_TOKEN: ((pivnet_token))
   - task: stage-tile
     file: pcf-pipelines/tasks/stage-product/task.yml
     params:
       OPSMAN_CLIENT_ID: ""
       OPSMAN_CLIENT_SECRET: ""
-      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.desjardins.com
       OPSMAN_PASSWORD: ((opsman_admin_password))
       OPSMAN_USERNAME: ((opsman_admin_username))
   - task: toggle-errands
@@ -233,7 +233,7 @@ jobs:
       ENABLE_ERRANDS: ""
       OPSMAN_CLIENT_ID: ""
       OPSMAN_CLIENT_SECRET: ""
-      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.desjardins.com
       OPSMAN_PASSWORD: ((opsman_admin_password))
       OPSMAN_USERNAME: ((opsman_admin_username))
 - name: upload-and-stage-scheduler
@@ -255,14 +255,14 @@ jobs:
       OPS_MGR_USR: ((opsman_admin_username))
       OPSMAN_CLIENT_ID: ""
       OPSMAN_CLIENT_SECRET: ""
-      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.desjardins.com
       PIVNET_API_TOKEN: ((pivnet_token))
   - task: stage-tile
     file: pcf-pipelines/tasks/stage-product/task.yml
     params:
       OPSMAN_CLIENT_ID: ""
       OPSMAN_CLIENT_SECRET: ""
-      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.desjardins.com
       OPSMAN_PASSWORD: ((opsman_admin_password))
       OPSMAN_USERNAME: ((opsman_admin_username))
   - task: toggle-errands
@@ -271,7 +271,7 @@ jobs:
       ENABLE_ERRANDS: ""
       OPSMAN_CLIENT_ID: ""
       OPSMAN_CLIENT_SECRET: ""
-      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.desjardins.com
       OPSMAN_PASSWORD: ((opsman_admin_password))
       OPSMAN_USERNAME: ((opsman_admin_username))
 - name: upload-and-stage-single-sign-on
@@ -293,14 +293,14 @@ jobs:
       OPS_MGR_USR: ((opsman_admin_username))
       OPSMAN_CLIENT_ID: ""
       OPSMAN_CLIENT_SECRET: ""
-      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.desjardins.com
       PIVNET_API_TOKEN: ((pivnet_token))
   - task: stage-tile
     file: pcf-pipelines/tasks/stage-product/task.yml
     params:
       OPSMAN_CLIENT_ID: ""
       OPSMAN_CLIENT_SECRET: ""
-      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.desjardins.com
       OPSMAN_PASSWORD: ((opsman_admin_password))
       OPSMAN_USERNAME: ((opsman_admin_username))
   - task: toggle-errands
@@ -309,7 +309,7 @@ jobs:
       ENABLE_ERRANDS: ""
       OPSMAN_CLIENT_ID: ""
       OPSMAN_CLIENT_SECRET: ""
-      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.desjardins.com
       OPSMAN_PASSWORD: ((opsman_admin_password))
       OPSMAN_USERNAME: ((opsman_admin_username))
 - name: upload-and-stage-metrics-forwarder
@@ -331,14 +331,14 @@ jobs:
       OPS_MGR_USR: ((opsman_admin_username))
       OPSMAN_CLIENT_ID: ""
       OPSMAN_CLIENT_SECRET: ""
-      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.desjardins.com
       PIVNET_API_TOKEN: ((pivnet_token))
   - task: stage-tile
     file: pcf-pipelines/tasks/stage-product/task.yml
     params:
       OPSMAN_CLIENT_ID: ""
       OPSMAN_CLIENT_SECRET: ""
-      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.desjardins.com
       OPSMAN_PASSWORD: ((opsman_admin_password))
       OPSMAN_USERNAME: ((opsman_admin_username))
   - task: toggle-errands
@@ -347,7 +347,7 @@ jobs:
       ENABLE_ERRANDS: ""
       OPSMAN_CLIENT_ID: ""
       OPSMAN_CLIENT_SECRET: ""
-      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.desjardins.com
       OPSMAN_PASSWORD: ((opsman_admin_password))
       OPSMAN_USERNAME: ((opsman_admin_username))
 - name: upload-and-stage-PCF-Metrics
@@ -369,14 +369,14 @@ jobs:
       OPS_MGR_USR: ((opsman_admin_username))
       OPSMAN_CLIENT_ID: ""
       OPSMAN_CLIENT_SECRET: ""
-      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.desjardins.com
       PIVNET_API_TOKEN: ((pivnet_token))
   - task: stage-tile
     file: pcf-pipelines/tasks/stage-product/task.yml
     params:
       OPSMAN_CLIENT_ID: ""
       OPSMAN_CLIENT_SECRET: ""
-      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.desjardins.com
       OPSMAN_PASSWORD: ((opsman_admin_password))
       OPSMAN_USERNAME: ((opsman_admin_username))
   - task: toggle-errands
@@ -385,7 +385,7 @@ jobs:
       ENABLE_ERRANDS: ""
       OPSMAN_CLIENT_ID: ""
       OPSMAN_CLIENT_SECRET: ""
-      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.desjardins.com
       OPSMAN_PASSWORD: ((opsman_admin_password))
       OPSMAN_USERNAME: ((opsman_admin_username))
 - name: upload-and-stage-ERT
@@ -407,14 +407,14 @@ jobs:
       OPS_MGR_USR: ((opsman_admin_username))
       OPSMAN_CLIENT_ID: ""
       OPSMAN_CLIENT_SECRET: ""
-      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.desjardins.com
       PIVNET_API_TOKEN: ((pivnet_token))
   - task: stage-tile
     file: pcf-pipelines/tasks/stage-product/task.yml
     params:
       OPSMAN_CLIENT_ID: ""
       OPSMAN_CLIENT_SECRET: ""
-      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.desjardins.com
       OPSMAN_PASSWORD: ((opsman_admin_password))
       OPSMAN_USERNAME: ((opsman_admin_username))
   - task: toggle-errands
@@ -423,7 +423,7 @@ jobs:
       ENABLE_ERRANDS: ""
       OPSMAN_CLIENT_ID: ""
       OPSMAN_CLIENT_SECRET: ""
-      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.desjardins.com
       OPSMAN_PASSWORD: ((opsman_admin_password))
       OPSMAN_USERNAME: ((opsman_admin_username))
 - name: upload-and-stage-splunk-nozzle
@@ -445,14 +445,14 @@ jobs:
       OPS_MGR_USR: ((opsman_admin_username))
       OPSMAN_CLIENT_ID: ""
       OPSMAN_CLIENT_SECRET: ""
-      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.desjardins.com
       PIVNET_API_TOKEN: ((pivnet_token))
   - task: stage-tile
     file: pcf-pipelines/tasks/stage-product/task.yml
     params:
       OPSMAN_CLIENT_ID: ""
       OPSMAN_CLIENT_SECRET: ""
-      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.desjardins.com
       OPSMAN_PASSWORD: ((opsman_admin_password))
       OPSMAN_USERNAME: ((opsman_admin_username))
   - task: toggle-errands
@@ -461,7 +461,7 @@ jobs:
       ENABLE_ERRANDS: ""
       OPSMAN_CLIENT_ID: ""
       OPSMAN_CLIENT_SECRET: ""
-      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.desjardins.com
       OPSMAN_PASSWORD: ((opsman_admin_password))
       OPSMAN_USERNAME: ((opsman_admin_username))
 - name: delete-unused-products
@@ -473,7 +473,7 @@ jobs:
     params:
       OPSMAN_CLIENT_ID: ""
       OPSMAN_CLIENT_SECRET: ""
-      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.***REMOVED***
+      OPSMAN_DOMAIN_OR_IP_ADDRESS: opsman.cfzcec.desjardins.com
       OPSMAN_PASSWORD: ((opsman_admin_password))
       OPSMAN_USERNAME: ((opsman_admin_username))
 - name: O
